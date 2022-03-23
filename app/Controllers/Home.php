@@ -33,6 +33,10 @@ class Home extends BaseController
         echo view('templates/footer');
     }
 
+    public function redirectHome(){
+        return redirect()->to('home');
+    }
+
     // Méthode qui va chercher la liste des sujets pour le formulaire de contact
     private function subjectList()
     {

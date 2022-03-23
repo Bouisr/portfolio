@@ -32,12 +32,21 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-$routes->get('/', 'Home::index');
-$routes->get('home/index', 'Home::index');
-$routes->get('user/signout', 'User::signout');
-$routes->get('dashboard/index', 'Dashboard::index', ['filter' => 'auth']);
-$routes->get('user/signin', 'User::signin');
+//
 
+
+$routes->get('home', 'Home::index');
+
+// Si l'utilisateur accède à la racine du site la requête est filtré et il est redirigé sur la page d'accueil
+$routes->get('/', 'Home::index', ['filter' => 'home']);
+
+$routes->get('user/signout', 'User::signout');
+$routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
+
+
+
+
+$routes->get('signin', 'User::signin');
 $routes->match(['post'], 'user/signinform', 'User::signinForm');
 $routes->match(['post'], 'message/insertmessage', 'Message::insertMessage');
 

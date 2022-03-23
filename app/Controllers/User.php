@@ -67,7 +67,7 @@ class User extends BaseController
 
             $this->isAuthenticate($user);
 
-            return redirect()->to('dashboard/index');
+            return redirect()->to('dashboard');
         }
     //}
 
@@ -77,7 +77,7 @@ class User extends BaseController
     {
         session()->destroy();
 
-        return redirect()->to('/');
+        return redirect()->to('home');
     }
 
     private function isAuthenticate($user)

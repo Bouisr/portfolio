@@ -84,7 +84,7 @@
 
         <!-- Footer-->
 
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5"><?php echo anchor('user/signin', 'Romain Bouis', 'class="nav-item" style="text-decoration: none"') ?> &copy; Portfolio 2022</div></footer>
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5"><?php echo anchor('signin', 'Romain Bouis', 'class="nav-item" style="text-decoration: none"') ?> &copy; Portfolio 2022</div></footer>
 
         <!-- Bootstrap core JS-->
 
