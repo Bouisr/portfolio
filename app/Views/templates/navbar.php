@@ -12,26 +12,42 @@
                     <ul class="navbar-nav ms-auto">
 
 
-                    <?php if (strpos(current_url(), 'home') OR (session()->get('isLoggedIn') == true)): ?>
-                        <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contactez-moi</a></li>
+                        <?php if (strpos(current_url(), 'home')): ?>
+                            <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#contact">Contactez-moi</a></li>
                         <?php endif ?>
+
+                        <?php if (!strpos(current_url(), 'home')): ?>
+                            <li class="nav-item"><?php echo anchor('home', 'Accueil', 'class="nav-link"') ?></li>
+                            <?php endif ?>
                         <?php if (session()->get('isLoggedIn')): ?>
 
                             <li class="nav-item"><?php echo anchor('user/signout', 'Déconnexion', 'class="nav-link"') ?></li>
 
+                            <!-- Page épreuve E4 à faire + Méthode -->
+                            <?php if (!strpos(current_url(), 'epreuve_e4')): ?>
+                            <li class="nav-item"><?php echo anchor('user/e4', 'Épreuve E4', 'class="nav-link"') ?></li>
+                            <?php endif ?>
+                                <!-- <p>Afficher la navbar du tableau de bord admin</p> -->
                                 <?php if (session()->get('role') == 999): ?>
-
-                                    <!-- <p>Afficher la navbar du tableau de bord admin</p> -->
-
+                                    <?php if(strpos(current_url(), 'dashboard')): ?>
+                                        <li class="nav-item"><a class="nav-link" href="#messages">Messages</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#skills">Compétences</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#productions">Productions</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#files">Fichiers</a></li>
+                                    <?php endif ?>
+                                        
+                                    <?php if(!strpos(current_url(), 'dashboard')): ?>
+                                        <li class="nav-item"><?php echo anchor('admin/consultdashboard', 'Tableau de bord', 'class="nav-link"') ?></li>
+                                    <?php endif ?>
                                 <?php endif ?>
 
                         <?php endif ?>
+                        <!-- Page s'identifier -->
                     <?php if (strpos(current_url(), 'signin')): ?>
-                        <li class="nav-item"><a class="nav-link" href="#signin">S'indentifier</a></li>
-                        <li class="nav-item"><?php echo anchor('home', 'Retour à la page d\'accueil', 'class="nav-link"') ?></li>
-                        
+                        <li class="nav-item"><a class="nav-link" href="#signin">S'indentifier</a></li>  
                     <?php endif ?>
                             
                     </ul>

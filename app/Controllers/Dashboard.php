@@ -25,6 +25,7 @@ class Dashboard extends BaseController
         } else {
             echo 'Mais ou sont-donc les données de session';
         }
+        echo view('templates/pre_footer');
         echo view('templates/footer');
     }
 }
