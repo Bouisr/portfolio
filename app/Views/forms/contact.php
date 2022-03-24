@@ -11,7 +11,7 @@
                         <i class="far fa-paper-plane fa-2x mb-2 text-white"  style="margin-top: 1rem"></i>
 
                         <h2 class="text-white mb-5">Contactez-moi ici !</h2>
-
+                        
                         <!-- * * * * * * * * * * * * * * *-->
 
                         <!-- * * SB Forms Contact Form * *-->
