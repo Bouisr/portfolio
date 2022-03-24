@@ -40,7 +40,7 @@
                                     <?php endif ?>
                                         
                                     <?php if(!strpos(current_url(), 'dashboard')): ?>
-                                        <li class="nav-item"><?php echo anchor('admin/consultdashboard', 'Tableau de bord', 'class="nav-link"') ?></li>
+                                        <li class="nav-item"><?php echo anchor('dashboard', 'Tableau de bord', 'class="nav-link"') ?></li>
                                     <?php endif ?>
                                 <?php endif ?>
 

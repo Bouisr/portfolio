@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\messageModel;
-use App\Models\messageSubjectModel;
 
 class Message extends BaseController
 {
@@ -13,36 +12,6 @@ class Message extends BaseController
         helper('url');
         helper('html');
     }
-
-    // private function displayView($data)
-    // {
-    //     echo view('templates/header');
-    //     echo view('templates/navbar');
-    //     echo view('templates/masthead');
-    //     echo view('forms/signin', $data );
-    //     echo view('templates/footer');
-    // }
-
-    // public function consultMessage()
-    // {
-    //     $dbMessage = new messageModel();
-    //     $messageList = $dbMessage->getMessage();
-    //     $data['messageList'] = $messageList;
-    //     var_dump($data);
-    //     $this->displayView('message', $data);
-    // }
-
-    // public function formContact()
-    // {
-    //     $dbSubject = new messageSubjectModel();
-    //     $subjectList = $dbSubject->getSubject();
-    //     foreach ($subjectList as $subject) {
-    //         $option[$subject['id_subject']] = $subject['label_subject'];
-    //     }
-    //     $data['subjectList'] = $option;
-        
-    //     $this->displayView($data);
-    // }
 
     public function insertMessage()
     {
@@ -59,5 +28,15 @@ class Message extends BaseController
         $dbMessage->setMessage($idSubject, $ipAddress,  $firstName, $lastName, $email, $telephone, $body, $archive);
 
         return redirect()->to('/');
+    }
+
+    public function consultMessage(){
+
+        $dbMessage = new messageModel();
+        $messageList = $dbMessage->getMessage();
+        $data['messageList'] = $messageList;
+        var_dump($data);
+        return $data;
+        
     }
 }
