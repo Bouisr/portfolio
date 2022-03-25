@@ -27,12 +27,13 @@
 
                             <!-- Page épreuve E4 à faire + Méthode -->
                             <?php if (!strpos(current_url(), 'epreuve_e4')): ?>
-                            <li class="nav-item"><?php echo anchor('user/e4', 'Épreuve E4', 'class="nav-link"') ?></li>
+                            <li class="nav-item"><?php echo anchor('user/e4', 'Épreuve', 'class="nav-link"') ?></li>
                             <?php endif ?>
                                 <!-- <p>Afficher la navbar du tableau de bord admin</p> -->
                                 <?php if (session()->get('role') == 999): ?>
                                     <?php if(strpos(current_url(), 'dashboard')): ?>
                                         <li class="nav-item"><a class="nav-link" href="#messages">Messages</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#messagesubjects">Sujets</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#skills">Compétences</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#productions">Productions</a></li>
@@ -40,13 +41,13 @@
                                     <?php endif ?>
                                         
                                     <?php if(!strpos(current_url(), 'dashboard')): ?>
-                                        <li class="nav-item"><?php echo anchor('admin/consultdashboard', 'Tableau de bord', 'class="nav-link"') ?></li>
+                                        <li class="nav-item"><?php echo anchor('dashboard', 'Tableau de bord', 'class="nav-link"') ?></li>
                                     <?php endif ?>
                                 <?php endif ?>
 
                         <?php endif ?>
                         <!-- Page s'identifier -->
-                    <?php if (strpos(current_url(), 'signin')): ?>
+                    <?php if (strpos(current_url(), 'signin') && (!session()->get('isLoggedIn'))): ?>
                         <li class="nav-item"><a class="nav-link" href="#signin">S'indentifier</a></li>  
                     <?php endif ?>
                             

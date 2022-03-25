@@ -7,6 +7,11 @@ namespace App\Controllers;
 
 
 use App\Models\messageModel;
+use App\Models\messageSubjectModel;
+use App\Models\skillModel;
+use App\Models\productionModel;
+use App\Models\projectModel;
+use App\Models\fileModel;
 
 
 
@@ -42,11 +47,33 @@ class Dashboard extends BaseController
 
         // Afficher la liste des messages
 
-        $messageList = $this->consultMessage();
+        $messageList = $this->consultMessage(); 
 
-        
+        if(empty($messageList)){
 
         echo view('dashboard/messages', $messageList);
+
+        };
+
+        $messageSubjectList = $this->consultMessageSubject(); 
+
+        echo view('dashboard/message_subjects', $messageSubjectList);
+
+        $skillList = $this->consultSkill(); 
+
+        echo view('dashboard/skills', $skillList);
+
+        // $projectList = $this->consultProject(); 
+
+        // echo view('dashboard/projects', $projectList);
+
+        // $productionList = $this->consultProduction(); 
+
+        // echo view('dashboard/productions', $productionList);
+
+        // $fileList = $this->consultFile(); 
+
+        // echo view('dashboard/files', $fileList);
 
         echo view('templates/pre_footer');
 
@@ -56,9 +83,7 @@ class Dashboard extends BaseController
 
 
 
-    public function consultMessage(){
-
-
+    private function consultMessage(){
 
         $dbMessage = new messageModel();
 
@@ -66,14 +91,96 @@ class Dashboard extends BaseController
 
         $data['messageList'] = $messageList;
 
-        
-
         return $data;
-
-        
 
     }
 
+    private function consultMessageSubject(){
 
+        $dbMessageSubject = new messageSubjectModel();
+
+        $messageSubjectList = $dbMessageSubject->getMessageSubject();
+
+        $data['messageSubjectList'] = $messageSubjectList;
+        
+        return $data;
+        
+    }
+
+    private function consultSkill(){
+
+        $dbSkill = new skillModel();
+
+        $skillList = $dbSkill->getSkill();
+
+        $data['skillList'] = $skillList;
+
+        return $data;     
+
+    }
+
+    private function consultProject(){
+
+        $dbProject = new projectModel();
+
+        $projectList = $dbProject->getProject();
+
+        $data['projectList'] = $projectList;
+        
+        return $data;
+        
+    }
+
+    private function insertProject()
+    {
+        $dbProject = new projectModel();
+
+        $idProject = $this->request->getPost('id_project');
+        $labelProject = $this->request->getPost('label_project');
+        $context = $this->request->getPost('context');
+        $idFileImg = $this->request->getPost('id_file_img');
+
+        $dbProject->setMessage($idProject, $labelProject,  $context, $idFileImg);
+
+        return redirect()->to('dashboard');
+    }
+
+    private function consultProduction(){
+
+        $dbProduction = new productionModel();
+
+        $productionList = $dbProduction->getProduction();
+
+        $data['productionList'] = $productionList;
+        
+        return $data;
+        
+    }
+
+    // private function insertProduction()
+    // {
+    //     $dbProduction = new productionModel();
+
+    //     $idProduction = $this->request->getPost('id_production');
+    //     $labelProduction = $this->request->getPost('label_project');
+    //     $content = $this->request->getPost('context');
+    //     //$idFileImg = $this->request->getPost('id_file_img');
+
+    //     $dbProduction->setMessage($idProject, $labelProject,  $context, $idFileImg);
+
+    //     return redirect()->to('dashboard');
+    // }
+
+    private function consultFile(){
+
+        $dbFile = new fileModel();
+
+        $fileList = $dbFile->getFile();
+
+        $data['fileList'] = $fileList;
+        
+        return $data;
+        
+    }
 
 }
