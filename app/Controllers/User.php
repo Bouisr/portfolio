@@ -19,7 +19,9 @@ class User extends BaseController
         echo view('templates/header');
         echo view('templates/navbar');
         echo view('templates/masthead');
+        echo view('templates/post_masthead');
         echo view('forms/signin');
+        echo view('templates/pre_footer');
         echo view('templates/footer');
     }
 

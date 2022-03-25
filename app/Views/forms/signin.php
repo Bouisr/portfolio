@@ -1,18 +1,16 @@
-<section class="signup-section" id="signin">
+<section class="projects-section bg-light align-content-center" id="signin">
 
-    <div class="container px-4 px-lg-5">
+<div class="container px-4 px-lg-5">
 
-        <div class="row gx-4 gx-lg-5">
+    <!-- Featured Project Row-->
+
+    <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
 
             <div class="col-md-10 col-lg-8 mx-auto text-center">
 
-                <h2 class="text-white mb-5">S'identifier</h2>
+                <h2 class="text-black mb-5">S'identifier</h2>
 
-                <?php echo '<pre class="text-white">';
-                echo strlen($_SERVER['REMOTE_ADDR']) . ' : ' . $_SERVER['REMOTE_ADDR'];
-                echo '</pre>'; ?>
-
-                <?php echo form_open('user/signinform', 'class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN"'); ?>
+                <?php echo form_open('user/signinform', 'class="form-signin" id="contactForm" data-sb-form-api-token="API_TOKEN"'); ?>
 
                 <div class="col" style="margin: 1rem;">
 

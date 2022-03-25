@@ -1,5 +1,5 @@
 <?php
-// A modifier
+
 namespace App\Models;
 use CodeIgniter\Model;
 
@@ -7,15 +7,17 @@ class messageModel extends Model {
 
     protected $table = 'MESSAGES';
 
+    // Méthode qui récupère tout les messages
     function getMessage(){
 
-        //return $this->select()->join('SUBJECTS', 'SUBJECTS.idSubject = MESSAGES.idSubject')->orderBy('dateCreate', 'DESC')->findAll();
+        // On récupère tout les messages qu'on trie par message le plus récent au plus ancien 
         return $this->select()->join('MESSAGE_SUBJECTS', 
                                     'MESSAGE_SUBJECTS.id_subject = MESSAGES.id_subject', 'inner')
                                     ->orderBy('id_message', 'DESC')->findAll();
 
     }
 
+    // Méthode qui insère un message dans la base de données
     function setMessage($idSubject, $ipAddress, $firstName, $lastName, $email, $telephone, $body, $archive){
 
         

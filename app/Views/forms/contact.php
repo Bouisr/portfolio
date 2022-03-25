@@ -25,7 +25,7 @@
                         <!-- https://startbootstrap.com/solution/contact-forms-->
 
                         <!-- to get an API token!-->
-                        <?php echo form_open('message/insertmessage', 'class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN"'); ?>
+                        <?php echo form_open('message/insertmessage', 'class="form-contact" id="contactForm" data-sb-form-api-token="API_TOKEN"'); ?>
                        
                                 <!-- FirstName input-->
 
@@ -129,8 +129,8 @@
                                         'class'                 => 'form-control',
                                         'id'                    => 'body',
                                         'type'                  => 'text',
-                                        'placeholder'           => 'VOTRE MESSAGE ...',
-                                        'aria-label'            => 'VOTRE MESSAGE ...',
+                                        'placeholder'           => 'Votre message ...',
+                                        'aria-label'            => 'Votre message ...',
                                         'data-sb-validations'   => 'required',
                                         'name'                  =>  'body',
                                         'value'                 =>  set_value('body'),
