@@ -1,7 +1,7 @@
-<section class="message-subjects-section bg-light" id="messagesubjects">
-    <div class="container px-4 px-lg-5">
+<section class="skills-section bg-light" id="skills" style="padding-top: 5rem; padding-bottom: 5rem">
+    <div class="container px-4 px-lg-5 text-center">
 
-            <h2 class="row justify-content-center text-black mb-4">Compétences</h2>
+        <h2 class="row justify-content-center text-black mb-4">Compétences</h2>
 
         <div class="table table-responsive">
             <div class="col-sm-md-lg-xl-3">
@@ -10,25 +10,24 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Intitulé de la compétence</th>
+                            <th scope="col">Date de création</th>
+                            <th scope="col">Date de modification</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-
-
-                        <?php
-                    
-                        foreach ($skillList as $id_skill => $skill) {
-                            
-                        ?>
-
+                        <?php foreach ($skillList as $skill) : ?>
                             <tr>
-                                <th scope="row"><?= $id_skill; ?></th>
-                                <td><?= $skill['label_skill']; ?></th>
+                                <th scope="row"><?= $skill['id_skill']; ?></th>
+                                <td><?= $skill['label_skill']; ?></td>
+                                <td><?= $skill['created_at']; ?></td>
+                                <td><?= $skill['updated_at']; ?></td>
+                                <td class="d-grid gap-2 d-sm-md-block">
+                                    <a href="" class="btn btn-success btn-sm">Modifier</a>
+                                    <a href="" class="btn btn-danger btn-sm">Supprimer</a>
+                                </td>
                             </tr>
-                        <?php
-                        } ?>
-
-
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
