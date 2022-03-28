@@ -59,7 +59,7 @@ class Dashboard extends BaseController
 
         echo view('dashboard/message_subjects', $messageSubjectList);
 
-        $skillList = $this->consultSkill(); 
+        $skillList = $this->displaySkills();
 
         echo view('dashboard/skills', $skillList);
 
@@ -107,11 +107,11 @@ class Dashboard extends BaseController
         
     }
 
-    private function consultSkill(){
+    private function displaySkills(){
 
         $dbSkill = new skillModel();
 
-        $skillList = $dbSkill->getSkill();
+        $skillList = $dbSkill->getSkills();
 
         $data['skillList'] = $skillList;
 

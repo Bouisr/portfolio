@@ -37,14 +37,4 @@ class messageSubjectModel extends Model{
         return $this->db->table('MESSAGE_SUBJECTS')->insert($data);
     }
 
-    public function updateMessageSubjectById($labelSubject, $idSubject)
-    {
-        $data = [
-
-            "label_subject" =>  $labelSubject
-        ];
-
-        return $this->db->table('MESSAGE_SUBJECTS')->where('id_subject', $idSubject)->update($data);
-    }
-
 }

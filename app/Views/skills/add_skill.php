@@ -1,14 +1,14 @@
-<section class="message-subjects-section bg-light" id="messagesubjects" style="padding-top: 5rem; padding-bottom: 5rem">
+<section class="skills-section bg-light" id="messagesubjects" style="padding-top: 5rem; padding-bottom: 5rem">
 
     <div class="container px-4 px-lg-5 text-center">
 
 
 
-        <h2 class="row justify-content-center text-black mb-4">Ajouter un sujet de message</h2>
+        <h2 class="row justify-content-center text-black mb-4">Ajouter une compétence</h2>
 
 
 
-        <?= form_open('messagesubject/addmessagesubject', 'class="" id=""'); ?>
+        <?= form_open('skill/addskill', 'class="" id=""'); ?>
 
 
 
@@ -24,7 +24,7 @@
 
 
 
-            'id'                    => 'label_subject',
+            'id'                    => 'label_skill',
 
 
 
@@ -32,23 +32,19 @@
 
 
 
-            'placeholder'           => 'Intitulé du sujet',
+            'placeholder'           => 'Intitulé de la compétence',
 
 
 
-            'aria-label'            => 'Intitulé du sujet',
+            'aria-label'            => 'Intitulé de la compétence',
 
 
 
-            'data-sb-validations'   => '',
+            'name'                  =>  'label_skill',
 
 
 
-            'name'                  =>  'label_subject',
-
-
-
-            'value'                 =>  set_value('label_subject'),
+            'value'                 =>  set_value('label_skill'),
 
 
 
