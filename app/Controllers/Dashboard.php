@@ -33,7 +33,7 @@ class Dashboard extends BaseController
 
     // Méthode qui affiche le tableau de bord de l'administrateur
 
-    public function index()
+    public function index($data = null)
 
     {
 
@@ -62,6 +62,8 @@ class Dashboard extends BaseController
         $skillList = $this->displaySkills();
 
         echo view('dashboard/skills', $skillList);
+
+        echo view('files/add_file');
 
         // $projectList = $this->consultProject(); 
 

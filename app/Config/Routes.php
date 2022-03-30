@@ -206,6 +206,10 @@ $routes->get('skill/delete/(:num)', 'Skill::deleteSkill/$1');
 // Supprimer un sujet
 $routes->match(['post'], 'skill/delete', 'Skill::deleteSkill');
 
+// Fichier à modifier
+$routes->match(['post'], 'file/upload', 'File::uploadFile');
+$routes->match(['post'], 'file/uploadmultiple', 'File::uploadMultipleFiles');
+
 
 
 

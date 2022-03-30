@@ -6,14 +6,28 @@ use CodeIgniter\Model;
 
 class fileModel extends Model
 {
-
+    // A faire : Modif BDD name_file =>   extension_file
     protected $table = 'FILES';
-    //protected $allowedFields = ['id_user', 'email_user', 'password_user', 'firstname_user', 'lastname_user', 'id_role'];
+    protected $allowedFields = ['id_file', 'name_file', 'extension_file'];
 
-    function getFile()
+    function getFiles()
     {
 
         return $this->findAll();
         
     }
+
+    public function setFile($nameFile, $extension)
+    {
+
+        $data = [
+
+            "name_file" => $nameFile,
+            
+            "extension_file" => $extension,
+        ];
+
+        return $this->db->table('FILES')->insert($data);
+    }
+
 }
