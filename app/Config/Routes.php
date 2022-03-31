@@ -201,6 +201,7 @@ $routes->match(['post'], 'skill/addskill', 'Skill::addSkill');
 $routes->get('skill/edit/(:num)', 'Skill::editSkill/$1');
 // Modifier un sujet
 $routes->match(['post'], 'skill/update', 'Skill::updateSkill');
+
 // Accéder à la page de suppression d'un sujet en fonction de l'id
 $routes->get('skill/delete/(:num)', 'Skill::deleteSkill/$1');
 // Supprimer un sujet
@@ -209,6 +210,18 @@ $routes->match(['post'], 'skill/delete', 'Skill::deleteSkill');
 // Fichier à modifier
 $routes->match(['post'], 'file/upload', 'File::uploadFile');
 $routes->match(['post'], 'file/uploadmultiple', 'File::uploadMultipleFiles');
+
+// Ajouter un projet
+$routes->get('project/add', 'Project::consultProject');
+$routes->match(['post'], 'project/addproject', 'Project::addProject');
+
+$routes->get('project/edit/(:num)', 'Project::editProject/$1');
+$routes->match(['post'], 'project/update', 'Project::updateProject');
+
+// Accéder à la page de suppression d'un projet en fonction de l'id ( param 1 : id projet, param 2 : id fichier )
+$routes->get('project/delete/(:num)/(:num)', 'Project::deleteProject/$1/$2');
+// Supprimer un projet
+$routes->match(['post'], 'project/delete', 'Project::deleteProject');
 
 
 

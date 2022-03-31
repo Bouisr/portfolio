@@ -82,7 +82,7 @@ class Skill extends BaseController
         
         $dbSkill = new skillModel();
 
-        $data['skill'] = $dbSkill->where('id_skill', $idSkill)->delete();
+        $dbSkill->where('id_skill', $idSkill)->delete();
 
         return redirect()->to('dashboard');
     }

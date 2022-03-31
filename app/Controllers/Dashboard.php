@@ -63,7 +63,9 @@ class Dashboard extends BaseController
 
         echo view('dashboard/skills', $skillList);
 
-        echo view('files/add_file');
+        $projectList = $this->consultProject();
+
+        echo view('dashboard/projects', $projectList);
 
         // $projectList = $this->consultProject(); 
 
@@ -125,7 +127,7 @@ class Dashboard extends BaseController
 
         $dbProject = new projectModel();
 
-        $projectList = $dbProject->getProject();
+        $projectList = $dbProject->getProjects();
 
         $data['projectList'] = $projectList;
         

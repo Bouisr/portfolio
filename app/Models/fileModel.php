@@ -10,11 +10,29 @@ class fileModel extends Model
     protected $table = 'FILES';
     protected $allowedFields = ['id_file', 'name_file', 'extension_file'];
 
-    function getFiles()
+    public function getFiles()
     {
 
         return $this->findAll();
         
+    }
+
+    public function getFileById($idFile = null)
+    {
+
+        // return  $this->select()
+        //              ->table
+        //              ->where('id_file', $idFile);
+
+        return $this->table('FILES')->where('id_file', $idFile)->get();
+    }
+
+    public function getLastFile()
+    {
+        return $this->select('id_file')
+                    ->table('FILES')
+                    ->orderBy('created_at', 'DESC')
+                    ->first();
     }
 
     public function setFile($nameFile, $extension)
