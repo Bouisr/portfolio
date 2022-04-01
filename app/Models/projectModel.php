@@ -13,19 +13,29 @@ class projectModel extends Model
     function getProjects()
     {
 
-        return $this->findAll();
+        // return $this->findAll();
+        return $this->select()->join('FILES', 
+
+        'FILES.id_file = PROJECTS.id_file_img', 'inner')
+
+        ->orderBy('id_project', 'DESC')->findAll();
         
     }
 
-    // function getLastFileById()
-    // {
-    //     return $this->db->table->select('id_file')
-    //                 ->orderBy('created_at', 'DESC')
-    //                 ->first();
-    // }
+    function getProjectById($idProject = null)
+    {
+
+        // return $this->findAll();
+        return $this->select()->join('FILES', 
+
+        'FILES.id_file = PROJECTS.id_file_img', 'inner')
+        ->where('id_project', $idProject)
+        ->first();
+        
+    }
 
 
-    function setProject($labelProject, $context, $idFileImg)
+    public function setProject($labelProject, $context, $idFileImg)
     {
         $data = [
 
@@ -37,5 +47,30 @@ class projectModel extends Model
         ];
 
         return $this->db->table('PROJECTS')->insert($data);
+    }
+
+    public function updateProject($labelProject, $context)
+    {
+        $data = [
+
+            "label_project"     =>  $labelProject,
+            
+            "context"           =>  $context,
+
+        ];
+
+        return $this->db->table('PROJECTS')->insert($data);
+        
+    }
+
+    public function setImgProject($idFileImg)
+    {
+        $data = [
+
+            "id_file_img"   =>  $idFileImg,
+
+        ];
+
+        return $this->table('PROJECTS')->insert($data);
     }
 }

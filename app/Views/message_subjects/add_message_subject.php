@@ -2,7 +2,9 @@
 
     <div class="container px-4 px-lg-5 text-center">
 
+    <div class="row gx-4 gx-lg-5">
 
+<div class="col-md-10 col-lg-8 mx-auto text-center"  id="projet">
 
         <h2 class="row justify-content-center text-black mb-4">Ajouter un sujet de message</h2>
 
@@ -111,7 +113,8 @@
 
 
     </div>
-
+    </div>
+    </div>
 
 
 </section>

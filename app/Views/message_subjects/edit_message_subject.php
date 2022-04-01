@@ -2,7 +2,9 @@
 
     <div class="container px-4 px-lg-5 text-center">
 
+    <div class="row gx-4 gx-lg-5">
 
+    <div class="col-md-10 col-lg-8 mx-auto text-center"  id="subject">
 
         <h2 class="row justify-content-center text-black mb-4">Modifier le sujet de message</h2>
 
@@ -13,30 +15,14 @@
 
 
         <?php
-
-
-
+        // 'name'   =>  'value'
         $data = [
 
-
-
-            'type'                  => 'hidden',
-
-
-
-            'name'                  =>  'id_subject',
-
-
-
-            'value'                 =>  $subject['id_subject'],
-
-
+            'id_subject'                  =>  $subject['id_subject'],
 
         ];
 
-
-
-        echo form_input($data);
+        echo form_hidden($data);
 
 
 
@@ -132,7 +118,8 @@
 
         <?= form_close(); ?>
 
-
+    </div>
+    </div>
 
     </div>
 

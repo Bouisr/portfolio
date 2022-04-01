@@ -1,4 +1,4 @@
-<section class="projects-section bg-light" id="messagesubjects" style="padding-top: 5rem; padding-bottom: 5rem">
+<section class="projects-section bg-light" id="projects" style="padding-top: 5rem; padding-bottom: 5rem">
 
     <div class="container px-4 px-lg-5 text-center">
 
@@ -24,7 +24,7 @@
 
                             <th scope="col">Contexte du projet</th>
 
-                            <th scope="col">Identifiant de l'image</th>
+                            <th scope="col">Illustration du projet</th>
 
                             <th scope="col">Date de création</th>
 
@@ -51,16 +51,20 @@
                                 <td><?= $project['label_project']; ?></td>
 
                                 <td><?= $project['context']; ?></td>
-
-                                <td><?= $project['id_file_img']; ?></td>
-
+                                <div class="text-center">
+                                <td>
+                                    <?= '<img class="img-fluid justify-content center" src="'
+                                        .base_url('assets/uploads/'.$project['name_file'])
+                                        .'" placeholder="'.$project['id_file_img'].'" style="height:4em;" /></td>'; 
+                                    ?>
+                                </div>
                                 <td><?= $project['created_at']; ?></td>
 
                                 <td><?= $project['updated_at']; ?></td>
 
                                 <td class="d-grid gap-2 d-sm-md-block">
 
-                                    <a href="<?= base_url('project/edit/'.$project['id_project']); ?>" class="btn btn-success btn-sm">Modifier</a>
+                                    <a href="<?= base_url('project/edit/'.$project['id_project'].'/'.$project['id_file_img']); ?>" class="btn btn-success btn-sm">Modifier</a>
 
                                     <a href="<?= base_url('project/delete/'.$project['id_project'].'/'.$project['id_file_img']); ?>" class="btn btn-danger btn-sm">Supprimer</a>
 
