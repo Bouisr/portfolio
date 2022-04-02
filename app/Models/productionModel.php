@@ -37,8 +37,47 @@ class productionModel extends Model
 // ORDER BY PF_PRODUCTIONS.id_production DESC
     }
 
-    public function setProductions()
+    public function getLastProduction()
     {
+        return $this->select('id_production')
+
+        ->table('PRODUCTIONS')
+
+        ->orderBy('created_at', 'DESC')
+
+        ->first();
+    }
+
+    public function setProduction($labelProduction, $content, $idProject, $idFileImg, $idFilePdf)
+    {
+        $data = [
+
+            "label_production"     =>  $labelProduction,
+            
+            "content"           =>  $content,
+
+            "id_project"           =>  $idProject,
+
+            "id_file_img"       =>  $idFileImg,
+
+            "id_file_pdf"       =>  $idFilePdf,
+        ];
+
+        return $this->db->table('PRODUCTIONS')->insert($data);
+    }
+
+    public function setValidate($idSkill, $idProduction)
+    {
+
+        $data = [
+
+            "id_skill"  =>  $idSkill,
+
+            "id_production" =>  $idProduction,
+
+        ];
+
+        return $this->db->table('VALIDATE')->insert($data);
 
     }
 }

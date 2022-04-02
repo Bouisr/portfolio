@@ -9,7 +9,7 @@
 
                 <h2 class="row justify-content-center text-black mb-4">Ajouter une production</h2>
 
-                <?= form_open_multipart('project/addproject') ?>
+                <?= form_open_multipart('production/addproduction') ?>
 
                 <?php
 
@@ -46,6 +46,8 @@
 
 
                 echo form_input($data);
+
+
 
                 ?>
 
@@ -91,9 +93,13 @@
 
 
 
+
+
                 ?>
 
-                <?= form_label('Sélectionner le projet associé à la production', 'project') ?>
+                <?= form_label('Sélectionner le projet associé à la production', 'id_project') ?>
+
+
 
                 <?php
 
@@ -106,8 +112,6 @@
                     'type'                  => 'select',
 
                     'data-sb-validations'   => 'required',
-
-                    'name'                  =>  'project',
 
                 ];
 
@@ -125,7 +129,7 @@
 
                 <?= form_label('Sélectionner une image d\'illustration', 'file_img') ?>
 
-
+                <?= '<div class="col" style="margin: 1rem;">'; ?>
 
                 <?php
 
@@ -148,6 +152,8 @@
 
 
                 <?= form_upload($data) ?>
+
+
 
                 <?= form_label('Sélectionner un pdf pour la production', 'file_pdf') ?>
 
@@ -175,6 +181,46 @@ $data = [
 
 <?= form_upload($data) ?>
 
+<?= '<div class="col" style="margin: 1rem;">'; ?>
+
+<div class="multi_select_box">
+
+    <?php
+        $data = [
+
+            'class'     =>      'form-label select-label',
+
+        ];
+
+    ?>
+
+<?= form_label('Sélectionner les compétences associées à la production', 'id_skill', $data) ?>
+
+<?php
+
+
+
+$data = [
+
+    'class'                 => 'select form-select multi_select',
+
+    'type'                  => 'select',
+
+    'data-sb-validations'   => 'required',
+
+    'optgroup label'     =>      'Liste des compétences',
+
+];
+
+
+// Liste déroulante contenant les compétences
+
+echo form_multiselect('id_skill[]', $skillList, $data);
+
+
+?>
+</div>
+
                 <?php
 
 
@@ -187,11 +233,11 @@ $data = [
 
 
 
-                    'id'                    => 'submitProject',
+                    'id'                    => 'submitProduction',
 
 
 
-                    'name'                  =>  'submitProject',
+                    'name'                  =>  'submitProduction',
 
 
 
@@ -204,8 +250,6 @@ $data = [
 
 
                 ?>
-
-
 
                 <?= form_submit($data) ?>
 
@@ -227,7 +271,5 @@ $data = [
         </div>
 
     </div>
-
-
 
 </section>

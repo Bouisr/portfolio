@@ -58,8 +58,6 @@
 
                                 <td><?= $production['content']; ?></td>
 
-                                <td><?= $production['label_project']; ?></td>
-
                                 <div class="text-center">
                                 <td>
                                     <?= '<img class="img-fluid justify-content center" src="'
