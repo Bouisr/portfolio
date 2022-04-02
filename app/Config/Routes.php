@@ -446,6 +446,29 @@ $routes->get('project/delete/(:num)/(:num)', 'Project::deleteProject/$1/$2');
 
 $routes->match(['post'], 'project/delete', 'Project::deleteProject');
 
+// Production
+
+$routes->get('production/add', 'Production::consultProduction');
+
+$routes->match(['post'], 'production/addproduction', 'Production::addProduction');
+
+
+
+$routes->get('production/edit/(:num)/(:num)', 'Production::editProduction/$1/$2');
+
+$routes->match(['post'], 'production/update', 'Production::updateProduction');
+
+
+
+// Accéder à la page de suppression d'un projet en fonction de l'id ( param 1 : id projet, param 2 : id fichier )
+
+$routes->get('production/delete/(:num)/(:num)', 'Production::deleteProduction/$1/$2');
+
+// Supprimer un projet
+
+$routes->match(['post'], 'production/delete', 'Production::deleteProduction');
+
+
 
 
 

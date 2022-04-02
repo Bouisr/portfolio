@@ -49,7 +49,7 @@ class projectModel extends Model
         return $this->db->table('PROJECTS')->insert($data);
     }
 
-    public function updateProject($labelProject, $context)
+    public function updateProject($idProject, $labelProject, $context)
     {
         $data = [
 
@@ -59,11 +59,11 @@ class projectModel extends Model
 
         ];
 
-        return $this->db->table('PROJECTS')->insert($data);
+        return $this->db->table('PROJECTS')->where('id_project', $idProject)->update($data);
         
     }
 
-    public function setImgProject($idFileImg)
+    public function setImgProject($idProject, $idFileImg)
     {
         $data = [
 
@@ -71,6 +71,6 @@ class projectModel extends Model
 
         ];
 
-        return $this->table('PROJECTS')->insert($data);
+        return $this->table('PROJECTS')->where('id_project', $idProject)->update($data);
     }
 }

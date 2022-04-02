@@ -159,12 +159,12 @@ class Project extends BaseController
         // On récupère le nom du fichier envoyé par formulaire
         $nameNewFile = $postfile->getName();
 
-        // Si le nom des fichiers est différent
+        //Si le nom des fichiers est différent
         if (!$nameLastFile === $nameNewFile) {
-
+            print_r('Les noms correspondent') .'<br>';
             // Si le fichier est sur le serveur web
             if (file_exists('assets/uploads/' . $nameLastFile)) {
-
+                print_r('Le fichier existe') .'<br>';
                 // On récupère le chemin
                 $pathUploads = base_url('./assets/uploads');
                 $filePath = $pathUploads . '/' . $nameLastFile;
@@ -176,12 +176,12 @@ class Project extends BaseController
 
                 $dbFile->where('id_file', $lastFileId)->delete();
 
-                $data = [
+                // $data = [
 
-                    'id_file_img'   =>  'NULL',
-                ];
-                // On enlève l'id du fichier dans la table PROJECTS
-                $dbProject->where('id_project', $idProject)->update('PROJECTS', $data);
+                //     'id_file_img'   =>  'NULL',
+                // ];
+                // // On enlève l'id du fichier dans la table PROJECTS
+                // $dbProject->where('id_project', $idProject)->update('PROJECTS', $data);
 
                 // On upload le fichier envoyé par formulaire
                 $this->uploadFile();
@@ -190,18 +190,13 @@ class Project extends BaseController
                 $newFileId = $dbFile->getLastFile();
 
                 // On met à jour l'identifiant du fichier dans la table PROJECTS
-                $dbProject->setImgProject($newFileId);
+                $dbProject->setImgProject($idProject, $newFileId);
             }
         }
 
-        $data = [
+        $dbProject->updateProject($idProject, $labelProject, $context);
 
-            "label_project"     =>  $labelProject,
-            "context"           =>  $context,
-
-        ];
-
-        $this->updateProject($data);
+        //return redirect()->to('dashboard');
     }
 
 
