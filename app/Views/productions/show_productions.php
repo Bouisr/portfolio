@@ -1,111 +1,116 @@
-<section class="productions-section bg-light" id="projects" style="padding-top: 5rem; padding-bottom: 5rem">
+<section class="container text-center" id="projects">
 
-    <div class="container px-4 px-lg-5 text-center">
+    <div class="row">
+
+        <div class="col-12">
+
+            <h2 class="text-center">Productions</h2>
+
+            <table class="table table-dark" 
+            data-toggle="table" 
+            data-search="true"
+            data-search-class="text-center"
+            data-show-columns="true" 
+            
+            data-buttons-class="primary"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th data-sortable="true" scope="col">ID</th>
+
+                        <th scope="col">Nom de la production</th>
+
+                        <th scope="col">Contenu</th>
+
+                        <th data-sortable="true" scope="col">Nom du projet</th>
+
+                        <th scope="col">Image d'illustration</th>
+
+                        <th scope="col">PDF associé à la production</th>
+
+                        <th scope="col">Compétences associées</th>
+
+                        <th data-sortable="true" scope="col">Date de création</th>
+
+                        <th scope="col">Date de modification</th>
+
+                        <th scope="col">Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    <pre>
+                    <?php print_r($productionList); ?>
+                    </pre>
+                    <?php foreach ($productionList as $production) : ?>
 
 
-
-        <h2 class="row justify-content-center text-black mb-4">Productions</h2>
-
-
-
-        <div class="table table-responsive">
-
-            <div class="col-sm-md-lg-xl-3">
-
-                <table class="table table-striped table-dark">
-
-                    <thead>
 
                         <tr>
 
-                            <th scope="col">#</th>
+                            <th scope="row"><?= $production['id_production']; ?></td>
 
-                            <th scope="col">Nom de la production</th>
+                            <td><?= $production['label_production']; ?></td>
 
-                            <th scope="col">Contenu</th>
+                            <td><?= $production['content']; ?></td>
 
-                            <th scope="col">Nom du projet</th>
+                            <td><?= $production['label_project']; ?></td>
 
-                            <th scope="col">Image d'illustration</th>
-
-                            <th scope="col">PDF</th>
-
-                            <th scope="col">Compétences associées</th>
-
-                            <th scope="col">Date de création</th>
-
-                            <th scope="col">Date de modification</th>
-
-                            <th scope="col">Action</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-
-
-                        <?php foreach ($productionList as $production) : ?>
-
-
-
-                            <tr>
-
-                                <th scope="row"><?= $production['id_production']; ?></td>
-
-                                <td><?= $production['label_production']; ?></td>
-
-                                <td><?= $production['content']; ?></td>
-
-                                <div class="text-center">
+                            <div class="text-center">
                                 <td>
-                                    <?= '<img class="img-fluid justify-content center" src="'
-                                        .base_url('assets/uploads/'.$production['name_file'])
-                                        .'" placeholder="'.$production['id_file_img'].'" style="height:4em;" /></td>'; 
+                                    <?= '<img class="img-fluid" src="'
+                                        . base_url('assets/uploads/' . $production['name_file'])
+                                        . '" placeholder="' . $production['id_file_img'] . '" style="height:4em; margin:0 auto;" /></td>';
                                     ?>
-                                </div>
-                                <td>
-                                    <?= '<img class="img-fluid justify-content center" src="'
-                                        .base_url('assets/uploads/'.$production['name_file'])
-                                        .'" placeholder="'.$production['id_file_pdf'].'" style="height:4em;" /></td>'; 
-                                    ?>
-                                </div>
-                                <td>
-                                <?php foreach ($skillList as $skill) : ?>
-                                <p><?= $skill['label_skill']; ?></p>
-                                <?php endforeach; ?>
-                                </td>
-                                <td><?= $production['created_at']; ?></td>
+                            </div>
+                            <td>
+                                <?= '<img class="img-fluid" src="'
+                                    . base_url('assets/uploads/' . $production['name_file'])
+                                    . '" placeholder="' . $production['id_file_pdf'] . '" style="height:4em; margin:0 auto;;" /></td>';
+                                ?>
+        </div>
+        <td>
+            <?php foreach ($skillList as $skill) : ?>
+                <p><?= $skill['label_skill']; ?></p>
+            <?php endforeach; ?>
+        </td>
+        <td><?= $production['created_at']; ?></td>
 
-                                <td><?= $production['updated_at']; ?></td>
+        <td><?= $production['updated_at']; ?></td>
 
-                                <td class="d-grid gap-2 d-sm-md-block">
-
-                                    <a href="<?= base_url('production/edit/'.$production['id_production'].'/'.$production['id_file_img']); ?>" class="btn btn-success btn-sm">Modifier</a>
-
-                                    <a href="<?= base_url('production/delete/'.$production['id_production'].'/'.$production['id_file_img']); ?>" class="btn btn-danger btn-sm">Supprimer</a>
-
-                                </td>
-
-                            </tr>
-
-                        <?php endforeach; ?>
-
-                    </tbody>
-
-                </table>
+        <td class="align-item text-center" style="padding:1rem;">
+                <div class="row" style="margin-bottom:1rem;">
+            <a href="<?= base_url('production/edit/' . $production['id_production'] . '/' . $production['id_file_img']); ?>" class="btn btn-success btn-sm">Modifier</a>
 
             </div>
+            <div class="row">
 
-        </div>
+            <a href="<?= base_url('production/delete/' . $production['id_production'] . '/' . $production['id_file_img']); ?>" class="btn btn-danger btn-sm">Supprimer</a>
+            </div>        </td>
 
-        <div class="container text-center">
+        </tr>
 
-            <a class="btn btn-primary" href="<?= base_url('production/add'); ?>">Ajouter une production</a>
+    <?php endforeach; ?>
 
-        </div>
+    </tbody>
 
+    </table>
+
+
+
+
+
+    <div class="container text-center">
+
+        <a class="btn btn-primary" href="<?= base_url('production/add'); ?>" style="margin-bottom:1rem; margin-top:1rem;">Ajouter une production</a>
+
+    </div>
+    </div>
     </div>
 
 </section>

@@ -35,3 +35,13 @@ img{
   .card-production:hover .overlay{
     transform: scale(1);
   }
+
+  #bootstrap-table{
+
+    background-color:rgb(183 136 57) !important;
+    font-size: 2.5rem;
+  }
+  #bootstrap-table{
+    font-size: large !important;
+    color:red !important;
+  }

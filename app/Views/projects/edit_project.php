@@ -43,11 +43,11 @@
 
 
 
-            'name'                  =>  'id_file_img',
+            'name'                  =>  'id_file',
 
 
 
-             'value'                 =>  $project['id_file_img'],
+             'value'                 =>  $project['id_file'],
 
 
 
@@ -147,7 +147,7 @@
         echo '</div>';
         echo '<img class="row img-fluid rounded mx-auto d-block" style="margin-bottom: 1rem" src="'
         .base_url('assets/uploads/'.$project['name_file'])
-        .'" placeholder="'.$project['id_file_img'].'" style="height:4em;" /></td>';
+        .'" placeholder="'.$project['id_file'].'" style="height:4em;" /></td>';
         echo '<div class="row" style="margin-bottom: 1rem;">';
         echo form_label('Changer l\'image d\'illustration', 'file');
         echo '</div>';

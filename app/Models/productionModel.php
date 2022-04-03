@@ -13,16 +13,18 @@ class productionModel extends Model
     function getProductions()
     {
 
-        // return $this->select()
-        //                     ->join('VALIDATE', 'VALIDATE.id_production = PROJECTS.id_production', 'inner')
-        //                     ->join('SKILLS', 'SKILLS.id_skill = VALIDATE.id_skill', 'inner')
-        //                     ->join('PROJECTS', 'PROJECTS.id_project = PRODUCTIONS.id_project', 'inner')
-        //                     ->join('FILES', 'FILES.id_file = PROJECTS.id_file_img', 'inner')
-        //                     //->orderBy('PRODUCTIONS.id_production', 'DESC')
-        //                     ->findAll();
-        
         return $this->select()
-                    ->findAll();
+                            ->join('VALIDATE', 'VALIDATE.id_production = PRODUCTIONS.id_production', 'inner')
+                            ->join('SKILLS', 'SKILLS.id_skill = VALIDATE.id_skill', 'inner')
+                            ->join('PROJECTS', 'PROJECTS.id_project = PRODUCTIONS.id_project', 'inner')
+                            ->join('FILES', 'FILES.id_file = PRODUCTIONS.id_file_img', 'right')
+                            
+                            ->groupBy('PRODUCTIONS.id_production')
+                            ->orderBy('PRODUCTIONS.id_production', 'DESC')
+                            ->findAll();
+        
+        // return $this->select()
+        //             ->findAll();
 
 //         SELECT * FROM PF_PRODUCTIONS
 // INNER JOIN PF_VALIDATE

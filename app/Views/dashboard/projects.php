@@ -55,7 +55,7 @@
                                 <td>
                                     <?= '<img class="img-fluid justify-content center" src="'
                                         .base_url('assets/uploads/'.$project['name_file'])
-                                        .'" placeholder="'.$project['id_file_img'].'" style="height:4em;" /></td>'; 
+                                        .'" placeholder="'.$project['id_file'].'" style="height:4em;" /></td>'; 
                                     ?>
                                 </div>
                                 <td><?= $project['created_at']; ?></td>
@@ -64,9 +64,9 @@
 
                                 <td class="d-grid gap-2 d-sm-md-block">
 
-                                    <a href="<?= base_url('project/edit/'.$project['id_project'].'/'.$project['id_file_img']); ?>" class="btn btn-success btn-sm">Modifier</a>
+                                    <a href="<?= base_url('project/edit/'.$project['id_project'].'/'.$project['id_file']); ?>" class="btn btn-success btn-sm">Modifier</a>
 
-                                    <a href="<?= base_url('project/delete/'.$project['id_project'].'/'.$project['id_file_img']); ?>" class="btn btn-danger btn-sm">Supprimer</a>
+                                    <a href="<?= base_url('project/delete/'.$project['id_project'].'/'.$project['id_file']); ?>" class="btn btn-danger btn-sm">Supprimer</a>
 
                                 </td>
 

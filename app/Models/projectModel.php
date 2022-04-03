@@ -8,7 +8,7 @@ class projectModel extends Model
 {
 
     protected $table = 'PROJECTS';
-    protected $allowedFields = ['id_project', 'label_project', 'context', 'id_file_img'];
+    protected $allowedFields = ['id_project', 'label_project', 'context', 'id_file'];
 
     function getProjects()
     {
@@ -16,7 +16,7 @@ class projectModel extends Model
         // return $this->findAll();
         return $this->select()->join('FILES', 
 
-        'FILES.id_file = PROJECTS.id_file_img', 'inner')
+        'FILES.id_file = PROJECTS.id_file', 'inner')
 
         ->orderBy('id_project', 'DESC')->findAll();
         
@@ -28,7 +28,7 @@ class projectModel extends Model
         // return $this->findAll();
         return $this->select()->join('FILES', 
 
-        'FILES.id_file = PROJECTS.id_file_img', 'inner')
+        'FILES.id_file = PROJECTS.id_file', 'inner')
         ->where('id_project', $idProject)
         ->first();
         
@@ -43,7 +43,7 @@ class projectModel extends Model
             
             "context"           =>  $context,
 
-            "id_file_img"       =>  $idFileImg,
+            "id_file"       =>  $idFileImg,
         ];
 
         return $this->db->table('PROJECTS')->insert($data);
@@ -67,7 +67,7 @@ class projectModel extends Model
     {
         $data = [
 
-            "id_file_img"   =>  $idFileImg,
+            "id_file"   =>  $idFileImg,
 
         ];
 

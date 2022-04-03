@@ -146,7 +146,7 @@ class Project extends BaseController
         $dbFile = new fileModel();
 
         // On récupère l'identifiant du fichier associé au projet
-        $lastFileId = $this->request->getPost('id_file_img');
+        $lastFileId = $this->request->getPost('id_file');
 
         $fileImg = $dbFile->getFileById($lastFileId);
         // On récupère le nom du fichier associé au projet
