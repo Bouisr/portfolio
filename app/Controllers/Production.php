@@ -25,6 +25,7 @@ class Production extends BaseController
         helper('file');
     }
 
+
     public function consultProduction()
     {
         echo view('templates/header');
@@ -93,56 +94,145 @@ class Production extends BaseController
         //var_dump($fileImg);
     }
 
-    // public function editMessageSubject($idSubject)
-    // {
+    public function updateProduction()
+    {
+        $dbProduction = new productionModel();
 
-    //     $dbMessageSubject = new messageSubjectModel();
-    //     $data['subject'] = $dbMessageSubject->find($idSubject);
+        // On récupère les données envoyés par formulaire
+        $idProduction = $this->request->getPost('id_production');
 
-    //     echo view('templates/header');
+        $labelProduction = $this->request->getPost('label_production');
 
-    //     echo view('templates/navbar');
+        $content = $this->request->getPost('content');
 
-    //     echo view('templates/masthead');
 
-    //     echo view('templates/post_masthead');
+        $dbFile = new fileModel();
 
-    //     echo view('message_subjects/edit_message_subject', $data);
+        // On récupère l'identifiant de l'image associée à la production
+        $lastFileId = $this->request->getPost('id_file_img');
 
-    //     echo view('templates/pre_footer');
+        $fileImg = $dbFile->getFileById($lastFileId);
+        // On récupère le nom du fichier associé au projet
+        foreach ($fileImg->getResult() as $file) {
+            $nameLastFile = $file->name_file;
+        }
 
-    //     echo view('templates/footer');
-    // }
+        // On récupère le fichier image envoyé par formulaire
+        $postfile = $this->request->getFile('file_img');
+        // On récupère le nom du fichier envoyé par formulaire
+        $nameNewFile = $postfile->getName();
 
-    // public function updateMessageSubject()
-    // {
-    //     $dbMessageSubject = new messageSubjectModel();
+        //Si le nom des fichiers est différent
+        if (!$nameLastFile === $nameNewFile) {
 
-    //     $idSubject = $this->request->getPost('id_subject');
+            // Si le fichier est sur le serveur web
+            if (file_exists('assets/uploads/' . $nameLastFile)) {
 
-    //     $data = [
+                // On récupère le chemin
+                $pathUploads = base_url('./assets/uploads');
+                $filePath = $pathUploads . '/' . $nameLastFile;
 
-    //         'label_subject' =>  $this->request->getPost('label_subject'),
-    //     ];
+                // On supprime le fichier sur l'application
+                unlink($filePath);
+                // unlink($filePath);
 
-    //     $dbMessageSubject->update($idSubject, $data);
+                // On supprime le fichier en BDD
 
-    //     return redirect()->to('dashboard');
-    // }
+                $dbFile->where('id_file', $lastFileId)->delete();
 
-    // public function deleteMessageSubject($idSubject = null)
-    // {
-    //     // A faire routes + controller + vue + Model
-    //     $dbMessageSubject = new messageSubjectModel();
+                // $data = [
 
-    //     $data['subject'] = $dbMessageSubject->where('id_subject', $idSubject)->delete();
+                //     'id_file_img'   =>  'NULL',
+                // ];
+                // // On enlève l'id du fichier dans la table PROJECTS
+                // $dbProject->where('id_project', $idProject)->update('PROJECTS', $data);
 
-    //     return redirect()->to('dashboard');
-    // }
+                // On upload le fichier envoyé par formulaire
+                $this->uploadFile('file_img');
+
+                // On récupère l'identifiant du fichier qu'on vient d'uploader
+                $newFileId = $dbFile->getLastFile();
+
+                // On met à jour l'identifiant du fichier dans la table PRODUCTIONS
+                $dbProduction->setImgProduction($idProduction, $newFileId);
+            }
+        }
+        
+
+
+            // On récupère l'identifiant du pdf associé à la production
+            $lastFileId = $this->request->getPost('id_file_pdf');
+
+            $fileImg = $dbFile->getFileById($lastFileId);
+            // On récupère le nom du fichier associé au projet
+            foreach ($fileImg->getResult() as $file) {
+                $nameLastFile = $file->name_file;
+            }
+
+            // On récupère le fichier pdf envoyé par formulaire
+            $postfile = $this->request->getFile('file_pdf');
+            // On récupère le nom du fichier envoyé par formulaire
+            $nameNewFile = $postfile->getName();
+
+            //Si le nom des fichiers est différent
+            if (!$nameLastFile === $nameNewFile) {
+
+            // Si le fichier est sur le serveur web
+                if (file_exists('assets/uploads/' . $nameLastFile)) {
+
+                // On récupère le chemin
+                    $pathUploads = base_url('./assets/uploads');
+                    $filePath = $pathUploads . '/' . $nameLastFile;
+
+                    // On supprime le fichier sur l'application
+                    unlink($filePath);
+                    // unlink($filePath);
+
+                    // On supprime le fichier en BDD
+                    $dbFile->where('id_file', $lastFileId)->delete();
+
+                    // On upload le fichier envoyé par formulaire
+                    $this->uploadFile('file_img');
+
+                    // On récupère l'identifiant du fichier qu'on vient d'uploader
+                    $newFileId = $dbFile->getLastFile();
+
+                    // On met à jour l'identifiant du fichier dans la table PRODUCTIONS
+                    $dbProduction->setPdfProduction($idProduction, $newFileId);
+                }
+            }
+
+            $dbProduction->updateProduction($idProduction, $labelProduction, $content);
+
+            return redirect()->to('dashboard');
+        
+    }
+
+    // Méthode qui affiche la page d'édition de production qui prend en paramètre l'identifiant de la production
+    function editProduction($idProduction = null)
+    {
+
+        $dbProduction = new productionModel();
+        
+        $data['production'] = $dbProduction->getProductionById($idProduction);
+
+        echo view('templates/header');
+
+        echo view('templates/navbar');
+
+        echo view('templates/masthead');
+
+        echo view('templates/post_masthead');
+
+        echo view('productions/edit_production', $data);
+    
+        echo view('templates/pre_footer');
+    
+        echo view('templates/footer');
+    }
 
     // Méthode qui retourne la liste des projets
-    private function projectList()
-
+    function projectList()
     {
 
         $dbProject = new projectModel();
@@ -160,8 +250,7 @@ class Production extends BaseController
     }
 
     // Méthode qui retourne la liste des compétences
-    private function skillList()
-
+    function skillList()
     {
 
         $dbSkill = new skillModel();
@@ -177,8 +266,9 @@ class Production extends BaseController
 
         return $data;
     }
+
     // Méthode qui upload un fichier, prend en paramètre le nom du fichier envoyé par formulaire
-    private function uploadFile($filePost)
+    function uploadFile($filePost)
     {
         // On définit les règles de validation
         $rules = [
