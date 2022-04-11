@@ -6,12 +6,12 @@ use App\Models\productionModel;
 use App\Models\projectModel;
 use App\Models\fileModel;
 use App\Models\skillModel;
+use App\Models\validateModel;
 
 class Production extends BaseController
 {
 
     public function __construct()
-
     {
 
         helper('form');
@@ -77,21 +77,21 @@ class Production extends BaseController
         // On récupère l'identifiant de la production qu'on vient de créer 
         $productionId = $dbProduction->getLastProduction();
 
+        $dbValidate = new validateModel();
+
         // Pour chaque compétence envoyée par le formulaire
         foreach ($skills as $skill) {
-            
+
             // On convertit l'identifiant de la compétence en entier
             $skill = intval($skill);
 
             // On insère dans la table VALIDATE l'id compétence et l'id production
-            $dbProduction->setValidate($skill, $productionId);
-
+            $dbValidate->setValidate($skill, $productionId);
         }
 
 
         return redirect()->to('dashboard');
 
-        //var_dump($fileImg);
     }
 
     public function updateProduction()
@@ -105,13 +105,33 @@ class Production extends BaseController
 
         $content = $this->request->getPost('content');
 
+        // On récupère l'identifiant du projet envoyé par formulaire
+        $idProject = $this->request->getPost('id_project');
+
+        // On récupère l'identifiant de toutes les compétences sélectionées par l'utilisateur
+        $skills = $this->request->getPost('id_skill[]');
+
+        $dbValidate = new validateModel();
+
+        // On supprime les anciennes compétences de la production
+        $dbValidate->where('id_production', $idProduction)->delete();
+
+        // Pour chaque compétence envoyée par le formulaire
+        foreach ($skills as $skill) {
+
+            // On convertit l'identifiant de la compétence en entier
+            $skill = intval($skill);
+
+            // On insère la compétence dans la BDD
+            $dbValidate->setValidate($skill, $idProduction);
+        }
 
         $dbFile = new fileModel();
 
         // On récupère l'identifiant de l'image associée à la production
-        $lastFileId = $this->request->getPost('id_file_img');
+        $lastFileImgId = $this->request->getPost('id_file_img');
 
-        $fileImg = $dbFile->getFileById($lastFileId);
+        $fileImg = $dbFile->getFileById($lastFileImgId);
         // On récupère le nom du fichier associé au projet
         foreach ($fileImg->getResult() as $file) {
             $nameLastFile = $file->name_file;
@@ -126,26 +146,22 @@ class Production extends BaseController
         if (!$nameLastFile === $nameNewFile) {
 
             // Si le fichier est sur le serveur web
-            if (file_exists('assets/uploads/' . $nameLastFile)) {
+            if (file_exists(realpath('assets/uploads/' . $nameLastFile))) {
 
                 // On récupère le chemin
-                $pathUploads = base_url('./assets/uploads');
-                $filePath = $pathUploads . '/' . $nameLastFile;
 
-                // On supprime le fichier sur l'application
-                unlink($filePath);
-                // unlink($filePath);
+                $filePath = realpath('assets/uploads/' . $nameLastFile);
 
-                // On supprime le fichier en BDD
 
-                $dbFile->where('id_file', $lastFileId)->delete();
+                if (unlink($filePath)) {
 
-                // $data = [
+                    // On supprime le fichier sur l'application
+                    unlink($filePath);
 
-                //     'id_file_img'   =>  'NULL',
-                // ];
-                // // On enlève l'id du fichier dans la table PROJECTS
-                // $dbProject->where('id_project', $idProject)->update('PROJECTS', $data);
+                    // On supprime le fichier en BDD
+                    $dbFile->where('id_file', $lastFileImgId)->delete();
+                }
+
 
                 // On upload le fichier envoyé par formulaire
                 $this->uploadFile('file_img');
@@ -157,55 +173,55 @@ class Production extends BaseController
                 $dbProduction->setImgProduction($idProduction, $newFileId);
             }
         }
-        
 
 
-            // On récupère l'identifiant du pdf associé à la production
-            $lastFileId = $this->request->getPost('id_file_pdf');
 
-            $fileImg = $dbFile->getFileById($lastFileId);
-            // On récupère le nom du fichier associé au projet
-            foreach ($fileImg->getResult() as $file) {
-                $nameLastFile = $file->name_file;
-            }
+        // On récupère l'identifiant du pdf associé à la production
+        $lastFilePdfId = $this->request->getPost('id_file_pdf');
 
-            // On récupère le fichier pdf envoyé par formulaire
-            $postfile = $this->request->getFile('file_pdf');
-            // On récupère le nom du fichier envoyé par formulaire
-            $nameNewFile = $postfile->getName();
+        $fileImg = $dbFile->getFileById($lastFilePdfId);
+        // On récupère le nom du fichier associé au projet
+        foreach ($fileImg->getResult() as $file) {
+            $nameLastFile = $file->name_file;
+        }
 
-            //Si le nom des fichiers est différent
-            if (!$nameLastFile === $nameNewFile) {
+        // On récupère le fichier pdf envoyé par formulaire
+        $postfile = $this->request->getFile('file_pdf');
+        // On récupère le nom du fichier envoyé par formulaire
+        $nameNewFile = $postfile->getName();
+
+        //Si le nom des fichiers est différent
+        if (!$nameLastFile === $nameNewFile) {
 
             // Si le fichier est sur le serveur web
-                if (file_exists('assets/uploads/' . $nameLastFile)) {
+            if (file_exists(realpath('assets/uploads/' . $nameLastFile))) {
 
                 // On récupère le chemin
-                    $pathUploads = base_url('./assets/uploads');
-                    $filePath = $pathUploads . '/' . $nameLastFile;
 
-                    // On supprime le fichier sur l'application
+                $filePath = realpath('assets/uploads/' . $nameLastFile);
+
+                // On supprime le fichier sur l'application
+                if (unlink($filePath)) {
+
                     unlink($filePath);
-                    // unlink($filePath);
 
                     // On supprime le fichier en BDD
-                    $dbFile->where('id_file', $lastFileId)->delete();
-
-                    // On upload le fichier envoyé par formulaire
-                    $this->uploadFile('file_img');
-
-                    // On récupère l'identifiant du fichier qu'on vient d'uploader
-                    $newFileId = $dbFile->getLastFile();
-
-                    // On met à jour l'identifiant du fichier dans la table PRODUCTIONS
-                    $dbProduction->setPdfProduction($idProduction, $newFileId);
+                    $dbFile->where('id_file', $lastFilePdfId)->delete();
                 }
+                // On upload le fichier envoyé par formulaire
+                $this->uploadFile('file_pdf');
+
+                // On récupère l'identifiant du fichier qu'on vient d'uploader
+                $newFileId = $dbFile->getLastFile();
+
+                // On met à jour l'identifiant du fichier dans la table PRODUCTIONS
+                $dbProduction->setPdfProduction($idProduction, $newFileId);
             }
+        }
 
-            $dbProduction->updateProduction($idProduction, $labelProduction, $content);
+        $dbProduction->updateProduction($idProduction, $labelProduction, $content, $idProject);
 
-            return redirect()->to('dashboard');
-        
+        return redirect()->to('dashboard');
     }
 
     // Méthode qui affiche la page d'édition de production qui prend en paramètre l'identifiant de la production
@@ -213,8 +229,15 @@ class Production extends BaseController
     {
 
         $dbProduction = new productionModel();
-        
+
         $data['production'] = $dbProduction->getProductionById($idProduction);
+
+        // On récupère la liste des projets
+        $data['projectList'] = $this->projectList();
+
+        // On récupère la liste des compétences
+        $data['skillList'] = $this->skillList();
+
 
         echo view('templates/header');
 
@@ -225,9 +248,9 @@ class Production extends BaseController
         echo view('templates/post_masthead');
 
         echo view('productions/edit_production', $data);
-    
+
         echo view('templates/pre_footer');
-    
+
         echo view('templates/footer');
     }
 
@@ -281,7 +304,7 @@ class Production extends BaseController
 
             // 'file'  =>  [
 
-            //     'rules' =>  [
+            //     'rules' => // [
 
             //         'required'              =>  'Vous devez ajouter une image d\'illustration pour votre projet',
             //         'uploaded[file]'        =>  'Fichier invalide',
@@ -329,5 +352,96 @@ class Production extends BaseController
                 $file->move('./assets/uploads');
             }
         }
+    }
+
+    // Méthode qui supprime une production ( prend en parmètre l'identifiant de la production, de l'image et du pdf associé)
+    public function deleteProduction($idProduction = null, $idFileImg = null, $idFilePdf = null)
+    {
+
+        $dbFile = new fileModel();
+        // On récupère le fichier en fonction de l'identifiant
+        $fileImg = $dbFile->getFileById($idFileImg);
+
+        foreach ($fileImg->getResult() as $file) {
+
+            // On récupère l'identifiant du fichier
+            $idFileImg = $file->id_file;
+
+            // On récupère le lnom du fichier
+            $nameFileImg = $file->name_file;
+        }
+
+        // On récupère le fichgier en fonction de l'identifiant
+        $filePdf = $dbFile->getFileById($idFilePdf);
+
+        foreach ($filePdf->getResult() as $file) {
+
+            // On récupère l'identifiant du fichier
+            $idFilePdf = $file->id_file;
+
+            // On récupère le nom du fichier
+            $nameFilePdf = $file->name_file;
+        }
+        $dbValidate = new validateModel();
+
+        // On commence par supprimer dans la table VALIDATE
+        // On supprime les compétences liées à la production dans la table VALIDATE en fonction de l'identifiant de la production
+        $dbValidate->where('id_production', $idProduction)->delete();
+
+        $dbProduction = new productionModel();
+
+        // Puis on supprime dans la table production
+        // On supprime la production dans la BDD en fonction de son identifiant
+        $dbProduction->where('id_production', $idProduction)->delete();
+
+
+
+
+
+        // Si le fichier existe dans le dossier uploads
+        if (file_exists(realpath('assets/uploads/' . $nameFileImg))) {
+
+
+            // On récupère le chemin
+            //$pathUploads = base_url('./assets/uploads');
+
+            //$filePath = $pathUploads . '/' . $nameFileImg;
+            $filePath =  realpath('assets/uploads/' . $nameFileImg);
+            // On supprime le fichier
+            if (unlink($filePath)) {
+
+                unlink($filePath);
+
+                //delete_files($filePath);
+
+                // On supprime le fichier dans la BDD avec l'identifiant de l'image
+                $dbFile->where('id_file', $idFileImg)->delete();
+            }
+        }
+
+        // Si le fichier existe dans le dossier uploads
+        if (file_exists(realpath('assets/uploads/' . $nameFilePdf))) {
+
+
+            // On récupère le chemin
+            // $pathUploads = base_url('./assets/uploads');
+
+            // $filePath = $pathUploads . '/' . $nameFilePdf;
+
+            $filePath = realpath('assets/uploads/' . $nameFilePdf);
+
+            if (unlink($filePath)) {
+
+                unlink($filePath);
+
+                //delete_files($filePath);
+
+                // On supprime le fichier dans le BDD  avec l'identifiant du pdf
+                $dbFile->where('id_file', $idFilePdf)->delete();
+            }
+        }
+
+        // redirection vers le tableau de bord
+        return redirect()->to('dashboard');
     }
 }

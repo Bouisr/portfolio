@@ -186,7 +186,85 @@ echo form_upload($data);
 
         echo '<div class="col" style="margin: 1rem;">';
 
+        echo form_label('Modifier le projet associé à la production', 'id_project');
 
+        $data = [
+
+
+
+            'class'                 => 'form-select',
+
+
+
+            'type'                  => 'select',
+
+
+
+            'data-sb-validations'   => 'required',
+
+        ];
+
+        // Liste déroulante contenant les projets
+        echo form_dropdown('id_project', $projectList, '', $data);
+  
+        echo '<div class="col" style="margin: 1rem;">';
+
+
+        echo '<div class="multi_select_box">';
+
+
+        $data = [
+
+
+
+            'class'     =>      'form-label select-label',
+
+
+
+        ];
+
+    ?>
+
+<?= form_label('Modifier les compétences associées à la production', 'id_skill', $data) ?>
+
+
+
+<?php
+
+$data = [
+
+
+
+    'class'                 => 'select form-select multi_select',
+
+
+
+    'type'                  => 'select',
+
+
+
+    'data-sb-validations'   => 'required',
+
+
+
+    'optgroup label'     =>      'Liste des compétences',
+
+
+
+];
+
+// Liste déroulante contenant les compétences
+echo form_multiselect('id_skill[]', $skillList, $data);
+
+
+
+
+
+?>
+
+</div>
+
+<?php
 
         $data = [
 

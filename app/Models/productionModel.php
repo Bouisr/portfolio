@@ -248,12 +248,6 @@ class productionModel extends Model
 
     }
 
-
-
-
-
-
-
     public function setProduction($labelProduction, $content, $idProject, $idFileImg, $idFilePdf)
 
 
@@ -320,73 +314,7 @@ class productionModel extends Model
 
     }
 
-
-
-
-
-
-
-    public function setValidate($idSkill, $idProduction)
-
-
-
-    {
-
-
-
-
-
-
-
-        $data = [
-
-
-
-
-
-
-
-            "id_skill"  =>  $idSkill,
-
-
-
-
-
-
-
-            "id_production" =>  $idProduction,
-
-
-
-
-
-
-
-        ];
-
-
-
-
-
-
-
-        return $this->db->table('VALIDATE')->insert($data);
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-    public function updateProduction($idProduction, $labelProduction, $content)
+   public function updateProduction($idProduction, $labelProduction, $content, $idProject)
 
 
 
@@ -399,6 +327,8 @@ class productionModel extends Model
             "label_production"     =>  $labelProduction,
 
             "content"           =>  $content,
+
+            "id_project"           =>  $idProject,
 
         ];
 
@@ -493,4 +423,5 @@ class productionModel extends Model
         return $this->table('PRODUCTIONS')->where('id_production', $idProduction)->update($data);
 
     }
+
 }
