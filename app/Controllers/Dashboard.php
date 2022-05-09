@@ -1,76 +1,17 @@
 <?php
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 namespace App\Controllers;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 use App\Models\messageModel;
-
-
-
 use App\Models\messageSubjectModel;
-
-
-
 use App\Models\skillModel;
-
-
-
 use App\Models\productionModel;
-
-
-
 use App\Models\projectModel;
-
-
-
 use App\Models\fileModel;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class Dashboard extends BaseController
 
 {
-
-
 
     public function __construct()
 
@@ -92,16 +33,11 @@ class Dashboard extends BaseController
 
     }
 
-
-
     // Méthode qui affiche le tableau de bord de l'administrateur
-
     public function index()
 
     {
-    //  echo '<pre>';
-    //     print_r(realpath('assets/uploads/favicon_3.ico'));
-    // echo '</pre>';
+
         echo view('templates/header');
 
         echo view('templates/navbar');
@@ -110,135 +46,50 @@ class Dashboard extends BaseController
 
         echo view('templates/post_masthead');
 
-
-
         //Afficher la liste des messages
+        $messageList = $this->displayMessage();
 
+        if(!empty($messageList)){
 
-
-        $messageList = $this->consultMessage(); 
-
-
-
-        if(empty($messageList)){
-
-
-
-        echo view('dashboard/messages', $messageList);
-
-
+        echo view('messages/show_messages', $messageList);
 
         };
 
+        $messageSubjectList = $this->displayMessageSubject(); 
 
-
-        $messageSubjectList = $this->consultMessageSubject(); 
-
-
-
-        echo view('dashboard/message_subjects', $messageSubjectList);
-
-
+        echo view('message_subjects/show_message_subjects', $messageSubjectList);
 
         $skillList = $this->displaySkills();
 
+        echo view('skills/show_skills', $skillList);
 
+        $projectList = $this->displayProject();
 
-        echo view('dashboard/skills', $skillList);
-
-
-
-        $projectList = $this->consultProject();
-
-
-
-        echo view('dashboard/projects', $projectList);
-
-
+        echo view('projects/show_projects', $projectList);
 
         $productionList = $this->displayProductionList();
 
-            
-
-
-
         echo view('productions/show_productions', $productionList);
-
-
 
         echo view('templates/pre_footer');
 
-
-
         echo view('templates/footer');
-
-
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private function consultMessage(){
-
-
-
-
-
-
+    private function displayMessage(){
 
         $dbMessage = new messageModel();
 
-
-
-
-
-
-
         $messageList = $dbMessage->getMessage();
-
-
-
-
-
-
 
         $data['messageList'] = $messageList;
 
-
-
-
-
-
-
         return $data;
-
-
-
-
-
-
 
     }
 
-
-
-
-
-
-
-    private function consultMessageSubject(){
+    private function displayMessageSubject(){
 
 
 
@@ -279,12 +130,6 @@ class Dashboard extends BaseController
 
 
     }
-
-
-
-
-
-
 
     private function displaySkills(){
 
@@ -328,13 +173,7 @@ class Dashboard extends BaseController
 
     }
 
-
-
-
-
-
-
-    private function consultProject(){
+    private function displayProject(){
 
 
 
@@ -375,316 +214,6 @@ class Dashboard extends BaseController
 
 
     }
-
-
-
-
-
-
-
-    private function insertProject()
-
-
-
-    {
-
-
-
-        $dbProject = new projectModel();
-
-
-
-
-
-
-
-        $idProject = $this->request->getPost('id_project');
-
-
-
-        $labelProject = $this->request->getPost('label_project');
-
-
-
-        $context = $this->request->getPost('context');
-
-
-
-        $idFileImg = $this->request->getPost('id_file_img');
-
-
-
-
-
-
-
-        $dbProject->setMessage($idProject, $labelProject,  $context, $idFileImg);
-
-
-
-
-
-
-
-        return redirect()->to('dashboard');
-
-
-
-    }
-
-
-
-
-
-
-
-    private function displayProductions(){
-
-
-
-
-
-
-
-        $dbProduction = new productionModel();
-
-
-
-        $productionList = $dbProduction->getProductions();
-
-
-
-        $data['productionList'] = $productionList;
-
-
-
-        return $data;
-
-
-
-        
-
-
-
-    }
-
-
-
-
-
-
-
-    // private function insertProduction()
-
-
-
-    // {
-
-
-
-    //     $dbProduction = new productionModel();
-
-
-
-
-
-
-
-    //     $idProduction = $this->request->getPost('id_production');
-
-
-
-    //     $labelProduction = $this->request->getPost('label_project');
-
-
-
-    //     $content = $this->request->getPost('context');
-
-
-
-    //     //$idFileImg = $this->request->getPost('id_file_img');
-
-
-
-
-
-
-
-    //     $dbProduction->setMessage($idProject, $labelProject,  $context, $idFileImg);
-
-
-
-
-
-
-
-    //     return redirect()->to('dashboard');
-
-
-
-    // }
-
-
-
-
-
-
-
-    private function consultFile(){
-
-
-
-
-
-
-
-        $dbFile = new fileModel();
-
-
-
-
-
-
-
-        $fileList = $dbFile->getFile();
-
-
-
-
-
-
-
-        $data['fileList'] = $fileList;
-
-
-
-        
-
-
-
-        return $data;
-
-
-
-        
-
-
-
-    }
-
-
-
-
-
-    // Méthode qui va chercher la liste des sujets pour le formulaire de contact
-
-    // private function displayProductionList()
-
-    // {
-
-    //     $dbProduction = new productionModel();
-
-    //     $productionsWithProjects = $dbProduction->getProductions();
-
-
-
-    //     foreach ($productionsWithProjects as $production) {
-
-
-
-    //             $idProduction = $production['id_production'];
-
-    //             $idProject = $production['id_project'];
-
-    //             $idFileImg = $production['id_file_img'];
-
-    //             $idFilePdf = $production['id_file_pdf'];
-
-
-
-    //             $dbFile = new fileModel();
-
-        
-
-    //             $dataFileImg = $dbFile->getFileById($idFileImg);
-
-    //             $dataFilePdf = $dbFile->getFileById($idFilePdf);
-
-
-
-    //             foreach ($dataFileImg->getResult() as $img) {
-
-    //                 $imgName = $img->name_file;
-
-    //             }
-
-
-
-
-
-    //             foreach ($dataFilePdf->getResult() as $pdf) {
-
-    //                 $pdfName = $pdf->name_file;
-
-    //             }
-
-
-
-    //             $dbProject = new projectModel();
-
-                
-
-    //             $dataProject = $dbProject->getProjectNameById($idProject);
-
-
-
-    //             foreach ($dataProject as $project) {
-
-    //                 $projectName = $project['label_project'];
-
-    //             }
-
-        
-
-    //             $dbSkill = new skillModel();
-
-        
-
-    //             $productionSkillsList = $dbSkill->getSkillsByIdProduction($idProduction);
-
-
-
-                
-
-
-
-    //             $productionList[$idProduction]['production'] = $productionsWithProjects;
-
-    //             $productionList[$idProduction]['skills'] = $productionSkillsList;
-
-    //             $productionList[$idProduction]['file']['img'] = $imgName;
-
-    //             $productionList[$idProduction]['file']['pdf'] = $pdfName;
-
-    //             $productionList[$idProduction]['project'] = $projectName; 
-
-
-
-    //             $data['productionList'] = $productionList;
-
-
-
-    //     }
-
-        
-
-    //      return $data;
-
-        
-
-    // }
-
-
 
     private function displayProductionList()
 
@@ -817,9 +346,5 @@ class Dashboard extends BaseController
         
 
     }
-
-
-
-
 
 }

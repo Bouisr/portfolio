@@ -1,23 +1,46 @@
 <section class="productions-section bg-light" id="productions" style="padding-top: 5rem; padding-bottom: 5rem">
 
+
+
     <div class="container px-4 px-lg-5 text-center">
+
+
+
 
 
         <div class="row gx-4 gx-lg-5">
 
+
+
             <div class="col-md-10 col-lg-8 mx-auto text-center" id="production">
+
+
 
                 <h2 class="row justify-content-center text-black mb-4">Ajouter une production</h2>
 
-                <?= form_open_multipart('production/addproduction') ?>
+
+
+                <?= form_open_multipart('dashboard/production/addproduction') ?>
+
+
 
                 <?php
+
+
 
                 $data = [
 
 
 
+
+
+
+
                     'class'                 => 'form-control',
+
+
+
+
 
 
 
@@ -25,7 +48,15 @@
 
 
 
+
+
+
+
                     'type'                  => 'text',
+
+
+
+
 
 
 
@@ -33,7 +64,15 @@
 
 
 
+
+
+
+
                     'name'                  =>  'label_production',
+
+
+
+
 
 
 
@@ -41,7 +80,15 @@
 
 
 
+
+
+
+
                 ];
+
+
+
+
 
 
 
@@ -49,7 +96,15 @@
 
 
 
+
+
+
+
                 ?>
+
+
+
+
 
 
 
@@ -57,7 +112,15 @@
 
 
 
+
+
+
+
                 $data = [
+
+
+
+
 
 
 
@@ -65,7 +128,15 @@
 
 
 
+
+
+
+
                     'id'                    => 'content',
+
+
+
+
 
 
 
@@ -73,7 +144,15 @@
 
 
 
+
+
+
+
                     'placeholder'           => 'Contenu du projet ... ',
+
+
+
+
 
 
 
@@ -81,11 +160,23 @@
 
 
 
+
+
+
+
                     'value'                 =>  set_value('content'),
 
 
 
+
+
+
+
                 ];
+
+
+
+
 
 
 
@@ -95,31 +186,65 @@
 
 
 
+
+
+
+
+
+
                 ?>
+
+
 
                 <?= form_label('Sélectionner le projet associé à la production', 'id_project') ?>
 
 
 
+
+
+
+
                 <?php
+
+
+
+
 
 
 
                 $data = [
 
+
+
                     'class'                 => 'form-select',
+
+
 
                     'type'                  => 'select',
 
+
+
                     'data-sb-validations'   => 'required',
+
+
 
                 ];
 
 
 
+
+
+
+
                 // Liste déroulante contenant les projets
 
+
+
                 echo form_dropdown('id_project', $projectList, '', $data);
+
+
+
+
 
 
 
@@ -127,15 +252,31 @@
 
 
 
+
+
+
+
                 <?= form_label('Sélectionner une image d\'illustration', 'file_img') ?>
 
+
+
                 <?= '<div class="col" style="margin: 1rem;">'; ?>
+
+
 
                 <?php
 
 
 
+
+
+
+
                 $data = [
+
+
+
+
 
 
 
@@ -143,11 +284,23 @@
 
 
 
+
+
+
+
                 ];
 
 
 
+
+
+
+
                 ?>
+
+
+
+
 
 
 
@@ -155,7 +308,15 @@
 
 
 
+
+
+
+
                 <?= form_label('Sélectionner un pdf pour la production', 'file_pdf') ?>
+
+
+
+
 
 
 
@@ -163,7 +324,15 @@
 
 
 
+
+
+
+
 $data = [
+
+
+
+
 
 
 
@@ -171,57 +340,115 @@ $data = [
 
 
 
+
+
+
+
 ];
 
 
 
+
+
+
+
 ?>
+
+
+
+
 
 
 
 <?= form_upload($data) ?>
 
+
+
 <?= '<div class="col" style="margin: 1rem;">'; ?>
+
+
 
 <div class="multi_select_box">
 
+
+
     <?php
+
         $data = [
+
+
 
             'class'     =>      'form-label select-label',
 
+
+
         ];
+
+
 
     ?>
 
+
+
 <?= form_label('Sélectionner les compétences associées à la production', 'id_skill', $data) ?>
+
+
 
 <?php
 
 
 
+
+
+
+
 $data = [
+
+
 
     'class'                 => 'select form-select multi_select',
 
+
+
     'type'                  => 'select',
+
+
 
     'data-sb-validations'   => 'required',
 
+
+
     'optgroup label'     =>      'Liste des compétences',
+
+
 
 ];
 
 
+
+
+
 // Liste déroulante contenant les compétences
+
+
 
 echo form_multiselect('id_skill[]', $skillList, $data);
 
 
+
+
+
 ?>
+
 </div>
 
+
+
                 <?php
+
+
+
+
 
 
 
@@ -229,7 +456,15 @@ echo form_multiselect('id_skill[]', $skillList, $data);
 
 
 
+
+
+
+
                     'class'                 => 'btn btn-success btn-sm',
+
+
+
+
 
 
 
@@ -237,7 +472,15 @@ echo form_multiselect('id_skill[]', $skillList, $data);
 
 
 
+
+
+
+
                     'name'                  =>  'submitProduction',
+
+
+
+
 
 
 
@@ -245,31 +488,62 @@ echo form_multiselect('id_skill[]', $skillList, $data);
 
 
 
+
+
+
+
                 ];
+
+
+
+
 
 
 
                 ?>
 
+
+
                 <?= form_submit($data) ?>
+
+
 
                 <?= form_close() ?>
 
+
+
                 <?php if (isset($validation)) : ?>
+
+
 
                     <div class="col-auto alert alert-danger" style="margin: 1rem;" role="alert">
 
 
 
+
+
+
+
                         <?php echo $validation->listErrors(); ?>
+
+
 
                     </div>
 
+
+
                 <?php endif; ?>
 
+
+
             </div>
+
         </div>
 
+
+
     </div>
+
+
 
 </section>

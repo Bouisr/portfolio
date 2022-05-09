@@ -1,17 +1,34 @@
 <section class="projects-section bg-light" id="messagesubjects" style="padding-top: 5rem; padding-bottom: 5rem">
 
+
+
     <div class="container px-4 px-lg-5 text-center">
+
+
+
 
 
     <div class="row gx-4 gx-lg-5">
 
+
+
     <div class="col-md-10 col-lg-8 mx-auto text-center"  id="projet">
+
+
 
         <h2 class="row justify-content-center text-black mb-4">Ajouter un projet</h2>
 
-    <?= form_open_multipart('project/addproject') ?>
+
+
+    <?= form_open_multipart('dashboard/project/addproject') ?>
+
+
 
     <?php
+
+
+
+
 
 
 
@@ -19,7 +36,15 @@
 
 
 
+
+
+
+
         'class'                 => 'form-control',
+
+
+
+
 
 
 
@@ -27,7 +52,15 @@
 
 
 
+
+
+
+
         'type'                  => 'text',
+
+
+
+
 
 
 
@@ -35,7 +68,15 @@
 
 
 
+
+
+
+
         'name'                  =>  'label_project',
+
+
+
+
 
 
 
@@ -43,13 +84,27 @@
 
 
 
+
+
+
+
     ];
+
+
+
+
 
 
 
     echo form_input($data);
 
+
+
     ?>
+
+
+
+
 
 
 
@@ -57,7 +112,15 @@
 
 
 
+
+
+
+
     $data = [
+
+
+
+
 
 
 
@@ -65,7 +128,15 @@
 
 
 
+
+
+
+
         'id'                    => 'context',
+
+
+
+
 
 
 
@@ -73,7 +144,15 @@
 
 
 
+
+
+
+
         'placeholder'           => 'Contexte du projet ... ',
+
+
+
+
 
 
 
@@ -81,11 +160,23 @@
 
 
 
+
+
+
+
         'value'                 =>  set_value('context'),
 
 
 
+
+
+
+
     ];
+
+
+
+
 
 
 
@@ -93,7 +184,15 @@
 
 
 
+
+
+
+
     ?>
+
+
+
+
 
 
 
@@ -101,11 +200,23 @@
 
 
 
+
+
+
+
     <?php
 
 
 
+
+
+
+
     $data = [
+
+
+
+
 
 
 
@@ -113,11 +224,23 @@
 
 
 
+
+
+
+
     ];
 
 
 
+
+
+
+
     ?>
+
+
+
+
 
 
 
@@ -125,7 +248,15 @@
 
 
 
+
+
+
+
     <?php
+
+
+
+
 
 
 
@@ -133,7 +264,15 @@
 
 
 
+
+
+
+
         'class'                 => 'btn btn-success btn-sm',
+
+
+
+
 
 
 
@@ -141,7 +280,15 @@
 
 
 
+
+
+
+
         'name'                  =>  'submitProject',
+
+
+
+
 
 
 
@@ -149,7 +296,15 @@
 
 
 
+
+
+
+
     ];
+
+
+
+
 
 
 
@@ -157,26 +312,53 @@
 
 
 
+
+
+
+
     <?= form_submit($data) ?>
+
+
 
     <?= form_close() ?>
 
+
+
     <?php if (isset($validation)) : ?>
+
+
 
         <div class="col-auto alert alert-danger" style="margin: 1rem;" role="alert">
 
 
 
+
+
+
+
             <?php echo $validation->listErrors(); ?>
+
+
 
         </div>
 
+
+
     <?php endif; ?>
 
-    </div>
+
+
     </div>
 
     </div>
+
+
+
+    </div>
+
+
+
+
 
 
 
