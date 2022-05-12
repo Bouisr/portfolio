@@ -47,7 +47,7 @@
             <figcaption class="overlay">
 
                     
-                    <a class="btn btn-primary" href="<?= base_url('assets/uploads/'.$production['pdf_production']); ?>"><h4><?= $production['label_production']; ?></h4></a>
+                    <a class="btn btn-primary" href="<?= base_url('assets/uploads/'.$production['pdf_production']); ?>">Consulter</h4></a>
 
 
             </figcaption>
